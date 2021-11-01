@@ -1,1 +1,1 @@
-data changed to int or error if not possible
+add user request loop to repeat request for data until correct

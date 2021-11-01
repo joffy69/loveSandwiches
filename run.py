@@ -16,15 +16,21 @@ def get_sales_data():
     """
     get sales figures from the user
     """
-    print('Please enter sales figures from the last market.')
-    print('Data should be six number separated by commas.')
-    print('example: 10,19,10,2,43,8\n')
+    while True:
+        print('Please enter sales figures from the last market.')
+        print('Data should be six number separated by commas.')
+        print('example: 10,19,10,2,43,8\n')
 
-    data_str = input("Enter data here: ")
-   
-    sale_data = data_str.split(',')
-    validate_data(sale_data)
+        data_str = input("Enter data here: ")
+    
+        sale_data = data_str.split(',')
+       
 
+        if validate_data(sale_data):
+            print('data is valid')
+            break
+    
+    return sale_data
 
 def validate_data(values):
     """
@@ -42,6 +48,8 @@ def validate_data(values):
         print(values)
     except ValueError as e:
         print(f'invalid data: {e}. please try again\n')
-        
+        return False
 
-get_sales_data()
+    return True 
+
+data = get_sales_data()
