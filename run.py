@@ -54,14 +54,7 @@ def validate_data(values):
     return True 
 
 
-def update_sales_worksheet(data):
-    """
-    update sales worksheet, add new row
-    """
-    print('updating sales worksheet...\n')
-    sales_worksheet = SHEET.worksheet('sales')
-    sales_worksheet.append_row(data)
-    print('sales updated correctly\n')
+
 
 def calc_surplus_data(sales_row):
     """
@@ -77,7 +70,23 @@ def calc_surplus_data(sales_row):
         surplus_data.append(surplus)
     return surplus_data
 
+def update_sales_worksheet(data):
+    """
+    update sales worksheet, add new row
+    """
+    print('updating sales worksheet...\n')
+    sales_worksheet = SHEET.worksheet('sales')
+    sales_worksheet.append_row(data)
+    print('sales updated correctly\n')
 
+def update_surplus_worksheet(surplus_row):
+    """
+    update surplus worksheet with calculated surplus
+    """
+    print(f'updating surplus worksheet....\n')
+    surplus_worksheet = SHEET.worksheet('surplus')
+    surplus_worksheet.append_row(surplus_row)
+    print('sales updated correctly\n')
 
 def main():
     """
@@ -88,7 +97,7 @@ def main():
     update_sales_worksheet(sales_data)
     new_surplus_data = calc_surplus_data(sales_data)
     print(new_surplus_data)
-
+    update_surplus_worksheet(new_surplus_data)
 print('welcome to love sandwiches data automation\n')
 
 main()
