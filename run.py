@@ -70,6 +70,8 @@ def calc_surplus_data(sales_row):
         surplus_data.append(surplus)
     return surplus_data
 
+"""
+for reference re refactoring
 def update_sales_worksheet(data):
     """
     update sales worksheet, add new row
@@ -79,14 +81,24 @@ def update_sales_worksheet(data):
     sales_worksheet.append_row(data)
     print('sales updated correctly\n')
 
-def update_surplus_worksheet(surplus_row):
+def update_surplus_worksheet(data):
     """
     update surplus worksheet with calculated surplus
     """
     print(f'updating surplus worksheet....\n')
     surplus_worksheet = SHEET.worksheet('surplus')
-    surplus_worksheet.append_row(surplus_row)
+    surplus_worksheet.append_row(data)
     print('sales updated correctly\n')
+"""
+
+def update_worksheet(data, worksheet):
+    """
+    receive data and worksheet for updating
+    """
+    print(f'updating {worksheet} worksheet...\n')
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
+    print(f'{worksheet} updated correctly\n')
 
 def main():
     """
@@ -94,10 +106,10 @@ def main():
     """
     data = get_sales_data()
     sales_data = [int(num) for num in data]
-    update_sales_worksheet(sales_data)
+    update_worksheet(sales_data,'sales')
     new_surplus_data = calc_surplus_data(sales_data)
-    print(new_surplus_data)
-    update_surplus_worksheet(new_surplus_data)
+    update_worksheet(new_surplus_data,'surplus')
+
 print('welcome to love sandwiches data automation\n')
 
 main()
