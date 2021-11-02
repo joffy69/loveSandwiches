@@ -73,18 +73,18 @@ def calc_surplus_data(sales_row):
 """
 for reference re refactoring
 def update_sales_worksheet(data):
-    """
+    
     update sales worksheet, add new row
-    """
+    
     print('updating sales worksheet...\n')
     sales_worksheet = SHEET.worksheet('sales')
     sales_worksheet.append_row(data)
     print('sales updated correctly\n')
 
 def update_surplus_worksheet(data):
-    """
+    
     update surplus worksheet with calculated surplus
-    """
+    
     print(f'updating surplus worksheet....\n')
     surplus_worksheet = SHEET.worksheet('surplus')
     surplus_worksheet.append_row(data)
@@ -100,6 +100,21 @@ def update_worksheet(data, worksheet):
     worksheet_to_update.append_row(data)
     print(f'{worksheet} updated correctly\n')
 
+def get_last_5_entries_sales():
+    """ 
+    collects last 5 entries
+    """
+    sales = SHEET.worksheet('sales')
+    # column = sales.col_values(3)
+    # print(column)
+
+    columns=[]
+    for ind in range(1,7):
+        column = sales.col_values(ind)
+        columns.append(column[-5:])
+
+    return columns 
+
 def main():
     """
     run all program files
@@ -112,4 +127,5 @@ def main():
 
 print('welcome to love sandwiches data automation\n')
 
-main()
+# main()
+sales_columns = get_last_5_entries_sales()
