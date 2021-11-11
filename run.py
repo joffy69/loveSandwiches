@@ -13,6 +13,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPEAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPEAD_CLIENT.open('love_sandwiches')
 
+
 def get_sales_data():
     """
     get sales figures from the user
@@ -26,12 +27,12 @@ def get_sales_data():
     
         sale_data = data_str.split(',')
        
-
         if validate_data(sale_data):
             print('data is valid')
             break
     
     return sale_data
+
 
 def validate_data(values):
     """
@@ -54,8 +55,6 @@ def validate_data(values):
     return True 
 
 
-
-
 def calc_surplus_data(sales_row):
     """
     compare sales with stock
@@ -66,7 +65,7 @@ def calc_surplus_data(sales_row):
     
     surplus_data =[]
     for stock, sales in zip(stock_row, sales_row):
-        surplus = int(stock)-sales
+        surplus = int(stock) - sales
         surplus_data.append(surplus)
     return surplus_data
 
@@ -115,6 +114,22 @@ def get_last_5_entries_sales():
 
     return columns 
 
+def calc_stock_data(data):
+    """
+    calc the average stock for each item type, adding 10%
+    """
+    print("Calculating stock data...\n")
+    new_stock_data=[]
+
+    for column in data:
+        int_column = [int(num) for num in column]
+        average = sum(int_column)/len(int_column)
+        stock_num = average*1.1
+        new_stock_data.append(round(stock_num))
+
+    return new_stock_data
+
+
 def main():
     """
     run all program files
@@ -124,8 +139,10 @@ def main():
     update_worksheet(sales_data,'sales')
     new_surplus_data = calc_surplus_data(sales_data)
     update_worksheet(new_surplus_data,'surplus')
+    sales_columns = get_last_5_entries_sales()
+    stock_data = calc_stock_data(sales_columns)
+    update_worksheet(stock_data, "stock")
 
 print('welcome to love sandwiches data automation\n')
 
-# main()
-sales_columns = get_last_5_entries_sales()
+main()
